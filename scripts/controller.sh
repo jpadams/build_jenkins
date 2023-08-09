@@ -1,3 +1,5 @@
+docker network create docker
+
 docker run --name jenkins-docker --rm --detach \
   --privileged --network docker \
   --env DOCKER_TLS_CERTDIR=/certs \
