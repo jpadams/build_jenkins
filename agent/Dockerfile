@@ -9,6 +9,8 @@ RUN echo "deb [arch=$(dpkg --print-architecture) \
   https://download.docker.com/linux/debian \
   $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
 RUN apt-get update && apt-get install -y docker-ce-cli
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash
+RUN apt update && apt install nodejs
 WORKDIR /usr/local
 RUN curl -L https://dl.dagger.io/dagger/install.sh | sh
 WORKDIR /home/jenkins
