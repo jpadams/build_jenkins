@@ -13,12 +13,9 @@ RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash
 RUN apt update && apt install nodejs
 WORKDIR /usr/local
 RUN curl -L https://dl.dagger.io/dagger/install.sh | DAGGER_VERSION=0.6.4 sh
+RUN curl -L -o go.tar.gz https://go.dev/dl/go1.21.0.linux-$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/).tar.gz
+RUN tar -xzf go.tar.gz
+RUN ln -s /usr/local/go/bin/go /usr/local/bin/go
+RUN rm go.tar.gz
 WORKDIR /home/jenkins
 RUN npm install -g @dagger.io/dagger@0.6.4 
-USER jenkins
-RUN mkdir ~/.npm-global
-RUN npm config set prefix '~/.npm-global'
-RUN echo 'export PATH="$PATH:$HOME/.npm-global/bin"' >> ~/.profile
-RUN . ~/.profile
-RUN npm install -g @dagger.io/dagger@0.6.4 
-USER root
